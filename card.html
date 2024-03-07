@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Card for Ziv</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+    font-family: 'Arial', sans-serif;
+  }
+  .card-container {
+    perspective: 1500px;
+    height: 500px;
+    width: 350px;
+  }
+  .card {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    transform-origin: right;
+  }
+  .card.is-flipped {
+    transform: translateX(-100%) rotateY(-180deg);
+  }
+  .card-face {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background-color: #fff;
+  }
+  .card-front, .card-back {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  .card-front {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  .card-front-content, .card-back-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-back {
+    transform: rotateY(180deg);
+  }
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+  .open-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-bottom-left-radius: 10px;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    transition: transform 0.5s;
+    transform-origin: top right;
+  }
+  /* Update for visibility and positioning */
+  .open-area::before {
+    content: attr(data-text);
+    color: black; /* Ensure text is black */
+    transition: transform 0.5s;
+    display: block;
+  }
+  .card:not(.is-flipped) .open-area::before {
+    content: 'Click to Open';
+  }
+  .card.is-flipped .open-area::before {
+    content: 'Click to Close';
+    transform: rotateY(-1deg)
+ }
+</style>
+</head>
+<body>
+<div class="card-container" onclick="toggleCard()">
+  <div class="card">
+    <div class="open-area" data-text="Click to Open"></div>
+    <div class="card-face card-front">
+      <div class="card-front-content">
+        <img src="Julie.png" alt="Julie Andrews" class="card-image">
+        <h1>Happy 66th Birthday, Ziv!</h1>
+        <p>With Love, your friends Julie and Gideon</p>
+      </div>
+    </div>
+    <div class="card-face card-back">
+      <div class="card-back-content">
+        <iframe id="birthdayVideo" width="100%" height="100%" src="https://www.youtube.com/embed/xaRCU0KCICY?autoplay=1&mute=1&playsinline=1&enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleCard() {
+    var card = document.querySelector('.card');
+    card.classList.toggle('is-flipped');
+  }
+</script>
+</body>
+</html>
